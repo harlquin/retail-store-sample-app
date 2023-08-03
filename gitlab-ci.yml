@@ -1,0 +1,20 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t your-dockerhub-username/your-image-name:latest .
+
+deploy:
+  stage: deploy
+  image: ubuntu:latest  # You can use a Docker image with kubectl installed or use a custom image
+  script:
+    - apt-get update -qy
+    - apt-get install -y kubectl
+    - kubectl apply -f deployment.yaml
+    - kubectl apply -f service.yaml
