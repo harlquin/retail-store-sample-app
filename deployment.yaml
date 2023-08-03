@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: retail-store-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: retail-store-app
+  template:
+    metadata:
+      labels:
+        app: retail-store-app
+    spec:
+      containers:
+        - name: retail-store-app
+          image: your-dockerhub-username/your-image-name:latest
+          ports:
+            - containerPort: 3000
